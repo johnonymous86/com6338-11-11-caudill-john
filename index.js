@@ -58,4 +58,23 @@ const makePoemHTML = (poemData) => {
     } else {
       currentStanzaLines.push(line);
     }
-  })}
+  })
+
+
+  if (currentStanzaLines.length > 0) {
+    const stanzaContent = currentStanzaLines.map((l, i) =>
+      i === currentStanzaLines.length - 1 ? l : l + makeBr()
+    ).join('');
+    stanzasHTML += makeP(stanzaContent);
+  }
+
+  return titleHTML + authorHTML + stanzasHTML;
+};
+
+
+getPoemBtn.onclick = async function() {
+
+  poemEl.innerHTML = makePoemHTML(await getJSON(poemURL));
+};
+
+
